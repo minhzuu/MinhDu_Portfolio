@@ -129,9 +129,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               Live Demo
             </a>
           )}
-          <span className="ml-auto text-sm text-white/30 group-hover:text-[#6C63FF] transition-colors flex items-center gap-1">
-            Details <ArrowUpRight size={14} />
-          </span>
+          {(project.demo || project.github) && (
+            <a
+              href={project.demo ?? project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-auto text-sm text-white/30 group-hover:text-[#6C63FF] transition-colors flex items-center gap-1"
+            >
+              Details <ArrowUpRight size={14} />
+            </a>
+          )}
         </div>
       </div>
     </motion.div>

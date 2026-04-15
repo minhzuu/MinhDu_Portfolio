@@ -36,7 +36,7 @@ export const projects: Project[] = [
     image: '/projects/lms-platform.png',
     featured: true,
     status: 'in-progress',
-    github: 'https://github.com/thanhbinh21/lms-microservices-platform',
+    github: 'https://github.com/minhzuu/lms-microservices-platform',
   },
   {
     id: 3,
