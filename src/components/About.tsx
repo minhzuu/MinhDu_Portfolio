@@ -6,8 +6,8 @@ export default function About() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
-  const infoCards = [
-    { label: 'Education', value: "Bachelor of Software Engineering" },
+  const infoCards: { label: string; value: string }[] = [
+    { label: 'Education', value: 'Bachelor of Software Engineering' },
     { label: 'Location', value: 'Ho Chi Minh City, VN' },
     { label: 'Status', value: 'Looking for work' },
   ]
@@ -75,7 +75,6 @@ export default function About() {
                   >
                     <p className="text-xs text-[#6C63FF] uppercase tracking-wide mb-2">{item.label}</p>
                     <p className="text-base font-medium text-white">{item.value}</p>
-                    {item.extra && <p className="text-xs text-white/40 mt-1">{item.extra}</p>}
                   </motion.div>
                 ))}
               </div>

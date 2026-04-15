@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion'
-import { useRef, CSSProperties } from 'react'
+import { useRef, type CSSProperties } from 'react'
 
 interface AnimatedTextProps {
   text: string
@@ -27,7 +27,7 @@ export function AnimatedText({ text, className, once = true, style }: AnimatedTe
       opacity: 1,
       y: 0,
       transition: {
-        type: 'spring',
+        type: 'spring' as const,
         damping: 12,
         stiffness: 100,
       },
@@ -36,7 +36,7 @@ export function AnimatedText({ text, className, once = true, style }: AnimatedTe
       opacity: 0,
       y: 40,
       transition: {
-        type: 'spring',
+        type: 'spring' as const,
         damping: 12,
         stiffness: 100,
       },
