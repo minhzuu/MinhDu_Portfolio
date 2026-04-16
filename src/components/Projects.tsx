@@ -1,48 +1,65 @@
-import { motion, useMotionValue, useSpring, useTransform, useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
-import { ExternalLink, ArrowUpRight } from 'lucide-react'
-import { AnimatedText } from './AnimatedText'
-import { projects, type Project } from '../data/projects'
-import { GithubIcon } from './icons/GithubIcon'
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useInView,
+} from "framer-motion";
+import { useRef, useState } from "react";
+import { ExternalLink, ArrowUpRight } from "lucide-react";
+import { AnimatedText } from "./AnimatedText";
+import { projects, type Project } from "../data/projects";
+import { GithubIcon } from "./icons/GithubIcon";
 
-function StatusBadge({ status }: { status: Project['status'] }) {
+function StatusBadge({ status }: { status: Project["status"] }) {
   const map = {
-    completed: { label: 'Completed', class: 'bg-[#00D4AA]/10 text-[#00D4AA] border-[#00D4AA]/20' },
-    'in-progress': { label: 'In Progress', class: 'bg-[#6C63FF]/10 text-[#6C63FF] border-[#6C63FF]/20' },
-    planned: { label: 'Planned', class: 'bg-[#FF6B6B]/10 text-[#FF6B6B] border-[#FF6B6B]/20' },
-  }
-  const s = map[status]
+    completed: {
+      label: "Completed",
+      class: "bg-[#00D4AA]/10 text-[#00D4AA] border-[#00D4AA]/20",
+    },
+    "in-progress": {
+      label: "In Progress",
+      class: "bg-[#6C63FF]/10 text-[#6C63FF] border-[#6C63FF]/20",
+    },
+    planned: {
+      label: "Planned",
+      class: "bg-[#FF6B6B]/10 text-[#FF6B6B] border-[#FF6B6B]/20",
+    },
+  };
+  const s = map[status];
   return (
-    <span className={`text-xs px-2.5 py-1 rounded-full border font-medium ${s.class}`}>
+    <span
+      className={`text-xs px-2.5 py-1 rounded-full border font-medium inline-flex items-center justify-center w-[104px] ${s.class}`}
+    >
       {s.label}
     </span>
-  )
+  );
 }
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 })
-  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 })
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 });
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['5deg', '-5deg'])
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-5deg', '5deg'])
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["5deg", "-5deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-5deg", "5deg"]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return
-    const rect = ref.current.getBoundingClientRect()
-    x.set(e.clientX / rect.width - 0.5 - rect.left / rect.width)
-    y.set(e.clientY / rect.height - 0.5 - rect.top / rect.height)
-  }
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    x.set(e.clientX / rect.width - 0.5 - rect.left / rect.width);
+    y.set(e.clientY / rect.height - 0.5 - rect.top / rect.height);
+  };
 
   const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-  }
+    x.set(0);
+    y.set(0);
+  };
 
   return (
     <motion.div
@@ -52,19 +69,25 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       className="group glow-card rounded-2xl overflow-hidden relative"
     >
       {/* Image / Placeholder */}
       <div className="relative aspect-video bg-[#111]/60 overflow-hidden">
         {project.image ? (
-          <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
         ) : (
           <div className="w-full h-full flex items-center justify-center relative">
             <div className="absolute inset-0 bg-gradient-to-br from-[#6C63FF]/5 to-[#00D4AA]/5" />
             <div className="text-center relative">
               <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-3">
-                <span className="text-2xl font-bold gradient-text">{project.title[0]}</span>
+                <span className="text-2xl font-bold gradient-text">
+                  {project.title[0]}
+                </span>
               </div>
               <p className="text-white/20 text-sm">Project Preview</p>
             </div>
@@ -101,7 +124,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             </span>
           ))}
           {project.tags.length > 5 && (
-            <span className="text-xs px-2.5 py-1 text-white/30">+{project.tags.length - 5}</span>
+            <span className="text-xs px-2.5 py-1 text-white/30">
+              +{project.tags.length - 5}
+            </span>
           )}
         </div>
 
@@ -142,22 +167,25 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
 
 export default function Projects() {
-  const [filter, setFilter] = useState<'all' | Project['status']>('all')
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
+  const [filter, setFilter] = useState<"all" | Project["status"]>("all");
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
 
-  const filtered = filter === 'all' ? projects : projects.filter((p) => p.status === filter)
+  const filtered =
+    filter === "all" ? projects : projects.filter((p) => p.status === filter);
 
   return (
-    <section id="projects" className="py-32 md:py-40 px-6 md:px-12 lg:px-20 relative">
+    <section
+      id="projects"
+      className="py-32 md:py-40 px-6 md:px-12 lg:px-20 relative"
+    >
       <div className="gradient-orb w-[500px] h-[500px] bg-[#6C63FF] top-[30%] right-[-200px]" />
 
       <div className="max-w-[1440px] mx-auto relative z-10">
-
         {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-16">
           <div className="lg:col-span-3" ref={ref}>
@@ -166,8 +194,12 @@ export default function Projects() {
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5 }}
             >
-              <p className="text-sm text-[#6C63FF] uppercase tracking-widest font-medium mb-2">02 /</p>
-              <p className="text-sm text-white/40 uppercase tracking-widest">Projects</p>
+              <p className="text-sm text-[#6C63FF] uppercase tracking-widest font-medium mb-2">
+                02 /
+              </p>
+              <p className="text-sm text-white/40 uppercase tracking-widest">
+                Projects
+              </p>
             </motion.div>
           </div>
 
@@ -182,26 +214,31 @@ export default function Projects() {
                 <AnimatedText
                   text="Featured Projects"
                   className="font-bold leading-tight tracking-tight mb-2"
-                  style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)' }}
+                  style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
                 />
                 <p className="text-white/40 text-base max-w-lg">
-                  Explore my recent projects showcasing fullstack development with Spring Boot, ReactJS, and modern web technologies.
+                  Explore my recent projects showcasing fullstack development
+                  with Spring Boot, ReactJS, and modern web technologies.
                 </p>
               </div>
 
               {/* Filter */}
               <div className="flex gap-2 flex-wrap">
-                {(['all', 'completed', 'in-progress'] as const).map((f) => (
+                {(["all", "completed", "in-progress"] as const).map((f) => (
                   <button
                     key={f}
                     onClick={() => setFilter(f)}
                     className={`text-sm px-4 py-2 rounded-full border transition-all cursor-pointer ${
                       filter === f
-                        ? 'bg-[#6C63FF] text-white border-[#6C63FF]'
-                        : 'border-white/10 text-white/40 hover:border-[#6C63FF]/40 hover:text-white/70'
+                        ? "bg-[#6C63FF] text-white border-[#6C63FF]"
+                        : "border-white/10 text-white/40 hover:border-[#6C63FF]/40 hover:text-white/70"
                     }`}
                   >
-                    {f === 'all' ? 'All' : f === 'completed' ? 'Completed' : 'In Progress'}
+                    {f === "all"
+                      ? "All"
+                      : f === "completed"
+                        ? "Completed"
+                        : "In Progress"}
                   </button>
                 ))}
               </div>
@@ -225,5 +262,5 @@ export default function Projects() {
         </div>
       </div>
     </section>
-  )
+  );
 }
