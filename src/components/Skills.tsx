@@ -16,8 +16,8 @@ const skillGroups = [
   { category: 'Frontend', skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Vite'], color: '#6C63FF' },
   { category: 'Backend', skills: ['Node.js', 'Express', 'Java Spring Boot', 'REST API'], color: '#00D4AA' },
   { category: 'Database', skills: ['PostgreSQL', 'MongoDB', 'MySQL', 'Redis'], color: '#FF6B6B' },
-  { category: 'Architecture', skills: ['Microservices', 'Event Driven', 'Layered Architecture', 'CQRS'], color: '#6C63FF' },
-  { category: 'DevOps & Tools', skills: ['Docker', 'Git', 'GitHub Actions', 'Nginx', 'Linux'], color: '#00D4AA' },
+  { category: 'Architecture', skills: ['Microservices', 'Event Driven', 'Layered Architecture'], color: '#6C63FF' },
+  { category: 'DevOps & Tools', skills: ['Docker', 'Git', 'GitHub', 'Linux'], color: '#00D4AA' },
   { category: 'Design & UI', skills: ['Figma', 'Responsive Design', 'UI/UX Principles'], color: '#FF6B6B' },
 ]
 
