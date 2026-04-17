@@ -8,13 +8,13 @@ const skillsRow1 = [
 ]
 
 const skillsRow2 = [
-  'Node.js', 'Express', 'Next.js', 'Docker', 'PostgreSQL', 'REST API',
-  'Microservices', 'Vite', 'Figma', 'Linux', 'Redis', 'Kafka',
+  'Node.js', 'Express', 'Docker', 'PostgreSQL', 'REST API',
+  'Microservices', 'Figma', 'Linux', 'Redis', 'Kafka',
 ]
 
 const skillGroups = [
-  { category: 'Frontend', skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Vite'], color: '#6C63FF' },
-  { category: 'Backend', skills: ['Node.js', 'Express', 'Java Spring Boot', 'REST API'], color: '#00D4AA' },
+  { category: 'Frontend', skills: ['React','TypeScript', 'Tailwind CSS'], color: '#6C63FF' },
+  { category: 'Backend', skills: ['Node.js', 'Express', 'Spring Boot'], color: '#00D4AA' },
   { category: 'Database', skills: ['PostgreSQL', 'MongoDB', 'MySQL', 'Redis'], color: '#FF6B6B' },
   { category: 'Architecture', skills: ['Microservices', 'Event Driven', 'Layered Architecture'], color: '#6C63FF' },
   { category: 'DevOps & Tools', skills: ['Docker', 'Git', 'GitHub', 'Linux'], color: '#00D4AA' },
